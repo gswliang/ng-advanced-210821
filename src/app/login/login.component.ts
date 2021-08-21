@@ -1,4 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 
 @Component({
   templateUrl: './login.component.html',
@@ -6,15 +7,16 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit, OnDestroy {
 
-  origBodyClassName = document.body.className;
+  origBodyClassName: string;
 
-  constructor() { }
+  constructor(@Inject(DOCUMENT) private document: Document) { }
 
   ngOnInit(): void {
-    document.body.className = 'bg-gradient-primary';
+    this.origBodyClassName = this.document.body.className;
+    this.document.body.className = 'bg-gradient-primary';
   }
 
   ngOnDestroy(): void {
-    document.body.className = this.origBodyClassName;
+    this.document.body.className = this.origBodyClassName;
   }
 }
