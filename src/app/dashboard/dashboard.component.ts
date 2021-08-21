@@ -18,6 +18,7 @@ export class DashboardComponent implements OnInit {
 
   gotoUtilitiesColor1(type: number, name: string) {
     this.router.navigate(['/utilities/color/', type], {
+      fragment: 'CustomFontSizeUtilities',
       queryParams: {
         name: name
       }
