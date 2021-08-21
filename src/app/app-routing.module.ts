@@ -1,3 +1,4 @@
+import { ColorComponent } from './utilities/color/color.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { Page1Component } from './page1/page1.component';
@@ -10,6 +11,13 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'page1', component: Page1Component },
   { path: 'page2', component: Page2Component },
+  // { path: 'utilities/color', component: ColorComponent },
+  {
+    path: 'utilities',
+    children: [
+      { path: 'color', component: ColorComponent }
+    ]
+  },
   { path: '**', component: NotFoundComponent },
 ];
 
