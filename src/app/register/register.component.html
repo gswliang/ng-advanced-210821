@@ -17,24 +17,30 @@ form.value = {{ form.value | json }}
 </pre>
                 <div *ngIf="ngForm.submitted && form.invalid">表單驗證失敗!!</div>
                 <form class="user" [formGroup]="form" #ngForm="ngForm" (ngSubmit)="doLogin(ngForm)">
-                  <div class="form-group">
-                    <input type="email" class="form-control form-control-user" formControlName="email"
-                           [class.is-invalid]="f('email').dirty && f('email').invalid"
-                           [class.is-valid]="f('email').dirty && f('email').valid" aria-describedby="emailHelp"
-                           placeholder="Enter Email Address...">
-                    <div *ngIf="f('email').invalid && f('email').errors?.required">請輸入您的 E-mail 地址</div>
-                    <div *ngIf="f('email').invalid && f('email').errors?.email || f('email').errors?.minlength">請輸入合法的
-                      E-mail 地址 </div>
-                  </div>
-                  <div class="form-group">
-                    <input type="password" class="form-control form-control-user" formControlName="mima"
-                           [class.is-invalid]="f('mima').dirty && f('mima').invalid"
-                           [class.is-valid]="f('mima').dirty && f('mima').valid" placeholder="Password">
-                    <div *ngIf="f('mima').invalid && (f('mima').errors.required)">請輸入您的密碼</div>
-                    <div
-                         *ngIf="f('mima').invalid && (f('mima').errors.pattern || f('mima').errors.minlength?.requiredLength || f('mima').errors?.maxlength)">
-                      請輸入合法的密碼格式 ( 請輸入 6 ~ 32 個字元，並至少輸入一個數字、一個小寫英文字母、一個大寫英文字母)</div>
-                  </div>
+
+                  <ng-container formGroupName="login">
+
+                      <div class="form-group">
+                        <input type="email" class="form-control form-control-user" formControlName="email"
+                              [class.is-invalid]="f('login.email').dirty && f('login.email').invalid"
+                              [class.is-valid]="f('login.email').dirty && f('login.email').valid" aria-describedby="emailHelp"
+                              placeholder="Enter Email Address...">
+                        <div *ngIf="f('login.email').invalid && f('login.email').errors?.required">請輸入您的 E-mail 地址</div>
+                        <div *ngIf="f('login.email').invalid && f('login.email').errors?.email || f('login.email').errors?.minlength">請輸入合法的
+                          E-mail 地址 </div>
+                      </div>
+                      <div class="form-group">
+                        <input type="password" class="form-control form-control-user" formControlName="mima"
+                              [class.is-invalid]="f('login.mima').dirty && f('login.mima').invalid"
+                              [class.is-valid]="f('login.mima').dirty && f('login.mima').valid" placeholder="Password">
+                        <div *ngIf="f('login.mima').invalid && (f('login.mima').errors.required)">請輸入您的密碼</div>
+                        <div
+                            *ngIf="f('login.mima').invalid && (f('login.mima').errors.pattern || f('login.mima').errors.minlength?.requiredLength || f('login.mima').errors?.maxlength)">
+                          請輸入合法的密碼格式 ( 請輸入 6 ~ 32 個字元，並至少輸入一個數字、一個小寫英文字母、一個大寫英文字母)</div>
+                      </div>
+
+                  </ng-container>
+
                   <div class="form-group">
                     <div class="custom-control custom-checkbox small">
                       <input type="checkbox" class="custom-control-input" id="customCheck"
