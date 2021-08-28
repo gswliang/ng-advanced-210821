@@ -37,8 +37,8 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.router.navigateByUrl('/');
         }
     }
-    else {
 
+    if (form.invalid) {
       let errMsg = '';
       for (const fieldName of Object.keys(form.controls)) {
         let ctrl = form.controls[fieldName] as FormControl;
@@ -47,7 +47,6 @@ export class LoginComponent implements OnInit, OnDestroy {
           errMsg += `欄位 ${fieldName} 發生錯誤: ${fieldValue}\r\n`;
         }
       }
-
       alert('表單驗證失敗，請正確填寫後再送出一次！\r\n' + errMsg);
     }
 

@@ -35,7 +35,6 @@ form.submitted = {{ form.submitted }}
                            required minlength="3" maxlength="100" email
                            [class.is-invalid]="mEmail.dirty && mEmail.invalid"
                            [class.is-valid]="mEmail.dirty && mEmail.valid"
-                           disabled
                            aria-describedby="emailHelp" placeholder="Enter Email Address...">
                     <div *ngIf="mEmail.invalid && mEmail.errors?.required">請輸入您的 E-mail 地址</div>
                     <div *ngIf="mEmail.invalid && mEmail.errors?.email || mEmail.errors?.minlength">請輸入合法的 E-mail 地址</div>
@@ -58,7 +57,6 @@ mEmail.status = {{ mEmail.status }}
                            required minlength="6" maxlength="32" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,32}$"
                            [class.is-invalid]="mMima.dirty && mMima.invalid"
                            [class.is-valid]="mMima.dirty && mMima.valid"
-                           disabled
                            placeholder="Password">
                     <div *ngIf="mMima.invalid && (mMima.errors.required)">請輸入您的密碼</div>
                     <div *ngIf="mMima.invalid && (mMima.errors.pattern || mMima.errors.minlength?.requiredLength || mMima.errors?.maxlength)">
@@ -79,7 +77,6 @@ mMima.status = {{ mMima.status }}
                   <div class="form-group">
                     <div class="custom-control custom-checkbox small">
                       <input type="checkbox" class="custom-control-input" id="customCheck"
-                           disabled
                         [(ngModel)]="data.isRememberMe" name="isRememberMe">
                       <label class="custom-control-label" for="customCheck">Remember Me</label>
                     </div>
