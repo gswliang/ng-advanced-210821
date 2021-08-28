@@ -27,21 +27,21 @@ export class Login2Component implements OnInit {
     this.origBodyClassName = this.document.body.className;
     this.document.body.className = 'bg-gradient-primary';
 
-    this.form = this.fb.group(this.data);
-
-    this.f('email').setValidators([
-      Validators.required,
-      Validators.email,
-      Validators.minLength(3),
-      Validators.maxLength(100)
-    ]);
-
-    this.f('mima').setValidators([
-      Validators.required,
-      Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,32}$/),
-      Validators.minLength(6),
-      Validators.maxLength(32)
-    ]);
+    this.form = this.fb.group({
+      email: ['', [
+        Validators.required,
+        Validators.email,
+        Validators.minLength(3),
+        Validators.maxLength(100)
+      ]],
+      mima: ['1231123123', [
+        Validators.required,
+        Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,32}$/),
+        Validators.minLength(6),
+        Validators.maxLength(32)
+      ]],
+      isRememberMe: true
+    });
 
   }
 
