@@ -32,7 +32,7 @@ form.submitted = {{ form.submitted }}
                   <div class="form-group">
                     <input type="email" class="form-control form-control-user"
                            [(ngModel)]="data.email" name="email" #mEmail="ngModel"
-                           required minlength="3" maxlength="100" email
+                           required minlength="3" maxlength="100" email ssid
                            [class.is-invalid]="mEmail.dirty && mEmail.invalid"
                            [class.is-valid]="mEmail.dirty && mEmail.valid"
                            aria-describedby="emailHelp" placeholder="Enter Email Address...">

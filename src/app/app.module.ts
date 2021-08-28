@@ -12,6 +12,7 @@ import { LoginComponent } from './login/login.component';
 import { LayoutComponent } from './layout/layout.component';
 import { Login2Component } from './login2/login2.component';
 import { RegisterComponent } from './register/register.component';
+import { TaiwanSsidDirective } from './register/taiwan-ssid.directive';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { RegisterComponent } from './register/register.component';
     LoginComponent,
     LayoutComponent,
     Login2Component,
-    RegisterComponent
+    RegisterComponent,
+    TaiwanSsidDirective
   ],
   imports: [
     BrowserModule,

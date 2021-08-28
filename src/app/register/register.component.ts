@@ -1,7 +1,29 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
-import { FormControl, FormBuilder, FormGroup, Validators, FormGroupDirective, FormArray } from '@angular/forms';
+import { FormControl, FormBuilder, FormGroup, Validators, FormGroupDirective, FormArray, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { TaiwanSsidDirective } from './taiwan-ssid.directive';
+// import {
+//   isGuiNumberValid, // 統一編號
+//   isNationalIdentificationNumberValid, // 身分證字號
+//   isResidentCertificateNumberValid, // 居留證編號
+//   isNewResidentCertificateNumberValid, // 新式居留證編號
+//   isOriginalResidentCertificateNumberValid, // 舊式居留證編號
+//   isCitizenDigitalCertificateNumberValid, // 自然人憑證
+//   isEInvoiceCellPhoneBarcodeValid, // 手機條碼
+//   isEInvoiceDonateCodeValid // 捐贈碼
+// } from 'taiwan-id-validator';
+
+// function ValidateSSID(control: AbstractControl): ValidationErrors {
+//   let ctrl = control as FormControl;
+//   if (isNationalIdentificationNumberValid(ctrl.value)) {
+//     return null;
+//   } else {
+//     return {
+//       ssid: true
+//     };
+//   }
+// }
 
 @Component({
   templateUrl: './register.component.html',
@@ -30,6 +52,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   constructor(@Inject(DOCUMENT) private document: Document,
     private fb: FormBuilder,
+    private ssid: TaiwanSsidDirective,
     private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -65,6 +88,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
     group.get('ssid').setValidators([
       Validators.required, Validators.minLength(3), Validators.maxLength(100),
+      this.ssid.validate
     ]);
 
     group.get('mima').setValidators([

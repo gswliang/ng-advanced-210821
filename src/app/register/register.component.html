@@ -27,6 +27,7 @@ form.value = {{ form.value | json }}
                               [class.is-invalid]="(ngForm.submitted || group.get('ssid').dirty) && group.get('ssid').invalid"
                               [class.is-valid]="(ngForm.submitted || group.get('ssid').dirty) && group.get('ssid').valid" aria-describedby="emailHelp"
                               placeholder="Enter Email Address...">
+                        <pre>{{ group.get('ssid').errors | json }}</pre>
                         <div *ngIf="group.get('ssid').invalid && group.get('ssid').errors?.required">請輸入您的 E-mail 地址</div>
                         <div *ngIf="group.get('ssid').invalid && group.get('ssid').errors?.minlength">請輸入合法的
                           E-mail 地址 </div>
