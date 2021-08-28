@@ -12,18 +12,57 @@
                 <div class="text-center">
                   <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                 </div>
+                <pre>{{ data | json}}</pre>
                 <form class="user">
                   <div class="form-group">
-                    <input type="email" class="form-control form-control-user" id="exampleInputEmail"
+                    <input type="email" class="form-control form-control-user"
+                           [(ngModel)]="data.email" name="email" #mEmail="ngModel"
+                           required minlength="3" maxlength="100" email
+                           [class.is-invalid]="mEmail.dirty && mEmail.invalid"
+                           [class.is-valid]="mEmail.dirty && mEmail.valid"
                            aria-describedby="emailHelp" placeholder="Enter Email Address...">
+                    <div *ngIf="mEmail.invalid && mEmail.errors?.required">請輸入您的 E-mail 地址</div>
+                    <div *ngIf="mEmail.invalid && mEmail.errors?.email || mEmail.errors?.minlength">請輸入合法的 E-mail 地址</div>
+<pre>mEmail.value = {{ mEmail.value }}
+mEmail.valid = {{ mEmail.valid }}
+mEmail.invalid = {{ mEmail.invalid }}
+mEmail.pristine = {{ mEmail.pristine }}
+mEmail.dirty = {{ mEmail.dirty }}
+mEmail.touched = {{ mEmail.touched }}
+mEmail.untouched = {{ mEmail.untouched }}
+mEmail.disabled = {{ mEmail.disabled }}
+mEmail.enabled = {{ mEmail.enabled }}
+mEmail.errors = {{ mEmail.errors | json }}
+mEmail.status = {{ mEmail.status }}
+</pre>
                   </div>
                   <div class="form-group">
-                    <input type="password" class="form-control form-control-user" id="exampleInputPassword"
+                    <input type="password" class="form-control form-control-user"
+                           [(ngModel)]="data.mima" name="mima" #mMima="ngModel"
+                           required minlength="6" maxlength="32" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,32}$"
+                           [class.is-invalid]="mMima.dirty && mMima.invalid"
+                           [class.is-valid]="mMima.dirty && mMima.valid"
                            placeholder="Password">
+                    <div *ngIf="mMima.invalid && mMima.errors?.required">請輸入您的密碼</div>
+                    <div *ngIf="mMima.invalid && mMima.errors?.pattern || mMima.errors?.minlength || mMima.errors?.maxlength">
+                      請輸入合法的密碼格式 ( 請輸入 6 ~ 32 個字元，並至少輸入一個數字、一個小寫英文字母、一個大寫英文字母)</div>
+<pre>mMima.value = {{ mMima.value }}
+mMima.valid = {{ mMima.valid }}
+mMima.invalid = {{ mMima.invalid }}
+mMima.pristine = {{ mMima.pristine }}
+mMima.dirty = {{ mMima.dirty }}
+mMima.touched = {{ mMima.touched }}
+mMima.untouched = {{ mMima.untouched }}
+mMima.disabled = {{ mMima.disabled }}
+mMima.enabled = {{ mMima.enabled }}
+mMima.errors = {{ mMima.errors | json }}
+mMima.status = {{ mMima.status }}
+</pre>
                   </div>
                   <div class="form-group">
                     <div class="custom-control custom-checkbox small">
-                      <input type="checkbox" class="custom-control-input" id="customCheck">
+                      <input type="checkbox" class="custom-control-input" id="customCheck"
+                        [(ngModel)]="data.isRememberMe" name="isRememberMe">
                       <label class="custom-control-label" for="customCheck">Remember Me</label>
                     </div>
                   </div>

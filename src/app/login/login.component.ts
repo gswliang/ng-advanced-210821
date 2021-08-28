@@ -10,6 +10,12 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   origBodyClassName: string;
 
+  data: any = {
+    email: '',
+    mima: '',
+    isRememberMe: true
+  };
+
   constructor(@Inject(DOCUMENT) private document: Document,
     private router: Router, private route: ActivatedRoute) { }
 
