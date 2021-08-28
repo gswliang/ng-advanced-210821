@@ -12,8 +12,23 @@
                 <div class="text-center">
                   <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                 </div>
-                <pre>{{ data | json}}</pre>
-                <form class="user">
+                <pre>data = {{ data | json}}
+form.value = {{ form.value | json }}
+form.valid = {{ form.valid }}
+form.invalid = {{ form.invalid }}
+form.pristine = {{ form.pristine }}
+form.dirty = {{ form.dirty }}
+form.touched = {{ form.touched }}
+form.untouched = {{ form.untouched }}
+form.disabled = {{ form.disabled }}
+form.enabled = {{ form.enabled }}
+form.errors = {{ form.errors | json }}
+form.status = {{ form.status }}
+form.submitted = {{ form.submitted }}
+</pre>
+                <div *ngIf="form.submitted && form.invalid">表單驗證失敗!!</div>
+
+                <form class="user" #form="ngForm" (ngSubmit)="doLogin(form)">
                   <div class="form-group">
                     <input type="email" class="form-control form-control-user"
                            [(ngModel)]="data.email" name="email" #mEmail="ngModel"
@@ -43,8 +58,8 @@ mEmail.status = {{ mEmail.status }}
                            [class.is-invalid]="mMima.dirty && mMima.invalid"
                            [class.is-valid]="mMima.dirty && mMima.valid"
                            placeholder="Password">
-                    <div *ngIf="mMima.invalid && mMima.errors?.required">請輸入您的密碼</div>
-                    <div *ngIf="mMima.invalid && mMima.errors?.pattern || mMima.errors?.minlength || mMima.errors?.maxlength">
+                    <div *ngIf="mMima.invalid && (mMima.errors.required)">請輸入您的密碼</div>
+                    <div *ngIf="mMima.invalid && (mMima.errors.pattern || mMima.errors.minlength?.requiredLength || mMima.errors?.maxlength)">
                       請輸入合法的密碼格式 ( 請輸入 6 ~ 32 個字元，並至少輸入一個數字、一個小寫英文字母、一個大寫英文字母)</div>
 <pre>mMima.value = {{ mMima.value }}
 mMima.valid = {{ mMima.valid }}
@@ -66,7 +81,7 @@ mMima.status = {{ mMima.status }}
                       <label class="custom-control-label" for="customCheck">Remember Me</label>
                     </div>
                   </div>
-                  <a (click)="doLogin()" class="btn btn-primary btn-user btn-block"> Login </a>
+                  <button type="submit" class="btn btn-primary btn-user btn-block">Login</button>
                   <hr>
                   <a href="index.html" class="btn btn-google btn-user btn-block">
                     <i class="fab fa-google fa-fw"></i> Login with Google </a>

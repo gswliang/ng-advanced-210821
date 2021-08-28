@@ -1,6 +1,7 @@
 import { Router, ActivatedRoute } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, NgForm } from '@angular/forms';
 
 @Component({
   templateUrl: './login.component.html',
@@ -12,7 +13,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   data: any = {
     email: '',
-    mima: '',
+    mima: '1231123123',
     isRememberMe: true
   };
 
@@ -24,14 +25,30 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.document.body.className = 'bg-gradient-primary';
   }
 
-  doLogin() {
+  doLogin(form: NgForm) {
 
-    // 假設登入驗證成功，寫入 Token 到 localStorage 中
-    localStorage.setItem('token', '123');
+    if (form.valid) {
+        // 假設登入驗證成功，寫入 Token 到 localStorage 中
+        localStorage.setItem('token', '123');
+        var url = this.route.snapshot.queryParamMap.get('returnUrl');
+        if (!!url) {
+          this.router.navigateByUrl(url);
+        } else {
+          this.router.navigateByUrl('/');
+        }
+    }
+    else {
 
-    var url = this.route.snapshot.queryParamMap.get('returnUrl');
-    if (!!url) {
-      this.router.navigateByUrl(url);
+      let errMsg = '';
+      for (const fieldName of Object.keys(form.controls)) {
+        let ctrl = form.controls[fieldName] as FormControl;
+        if (ctrl.invalid) {
+          let fieldValue = ctrl.value;
+          errMsg += `欄位 ${fieldName} 發生錯誤: ${fieldValue}\r\n`;
+        }
+      }
+
+      alert('表單驗證失敗，請正確填寫後再送出一次！\r\n' + errMsg);
     }
 
   }
