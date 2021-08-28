@@ -18,34 +18,38 @@ form.value = {{ form.value | json }}
                 <div *ngIf="ngForm.submitted && form.invalid">表單驗證失敗!!</div>
                 <form class="user" [formGroup]="form" #ngForm="ngForm" (ngSubmit)="doLogin(ngForm)">
 
-                  <ng-container formGroupName="login">
+                  <ng-container formArrayName="users">
+
+                    <ng-container *ngFor="let group of a('users').controls; let i = index" [formGroupName]="i">
 
                       <div class="form-group">
                         <input type="email" class="form-control form-control-user" formControlName="email"
-                              [class.is-invalid]="f('login.email').dirty && f('login.email').invalid"
-                              [class.is-valid]="f('login.email').dirty && f('login.email').valid" aria-describedby="emailHelp"
+                              [class.is-invalid]="group.get('email').dirty && group.get('email').invalid"
+                              [class.is-valid]="group.get('email').dirty && group.get('email').valid" aria-describedby="emailHelp"
                               placeholder="Enter Email Address...">
-                        <div *ngIf="f('login.email').invalid && f('login.email').errors?.required">請輸入您的 E-mail 地址</div>
-                        <div *ngIf="f('login.email').invalid && f('login.email').errors?.email || f('login.email').errors?.minlength">請輸入合法的
+                        <div *ngIf="group.get('email').invalid && group.get('email').errors?.required">請輸入您的 E-mail 地址</div>
+                        <div *ngIf="group.get('email').invalid && group.get('email').errors?.email || group.get('email').errors?.minlength">請輸入合法的
                           E-mail 地址 </div>
                       </div>
                       <div class="form-group">
                         <input type="password" class="form-control form-control-user" formControlName="mima"
-                              [class.is-invalid]="f('login.mima').dirty && f('login.mima').invalid"
-                              [class.is-valid]="f('login.mima').dirty && f('login.mima').valid" placeholder="Password">
-                        <div *ngIf="f('login.mima').invalid && (f('login.mima').errors.required)">請輸入您的密碼</div>
+                              [class.is-invalid]="group.get('mima').dirty && group.get('mima').invalid"
+                              [class.is-valid]="group.get('mima').dirty && group.get('mima').valid" placeholder="Password">
+                        <div *ngIf="group.get('mima').invalid && (group.get('mima').errors.required)">請輸入您的密碼</div>
                         <div
-                            *ngIf="f('login.mima').invalid && (f('login.mima').errors.pattern || f('login.mima').errors.minlength?.requiredLength || f('login.mima').errors?.maxlength)">
+                            *ngIf="group.get('mima').invalid && (group.get('mima').errors.pattern || group.get('mima').errors.minlength?.requiredLength || group.get('mima').errors?.maxlength)">
                           請輸入合法的密碼格式 ( 請輸入 6 ~ 32 個字元，並至少輸入一個數字、一個小寫英文字母、一個大寫英文字母)</div>
                       </div>
 
+                    </ng-container>
+
                   </ng-container>
+
+
 
                   <div class="form-group">
                     <div class="custom-control custom-checkbox small">
-                      <input type="checkbox" class="custom-control-input" id="customCheck"
-                             formControlName="isRememberMe">
-                      <label class="custom-control-label" for="customCheck">Remember Me</label>
+                      <button type="button" class="btn btn-default btn-user btn-block" (click)="addNewUser()">新增使用者</button>
                     </div>
                   </div>
                   <button type="submit" class="btn btn-primary btn-user btn-block">Login</button>

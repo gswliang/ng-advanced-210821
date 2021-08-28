@@ -1,6 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormBuilder, FormGroup, Validators, FormGroupDirective } from '@angular/forms';
+import { FormControl, FormBuilder, FormGroup, Validators, FormGroupDirective, FormArray } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -28,48 +28,58 @@ export class RegisterComponent implements OnInit {
     this.document.body.className = 'bg-gradient-primary';
 
     this.form = this.fb.group({
-
-      login: this.fb.group({
-          email: this.fb.control('', {
-            updateOn: 'change',
-            validators: [
-              Validators.required,
-              Validators.email,
-              Validators.minLength(3),
-              Validators.maxLength(100)
-            ]
-          }),
-          mima: this.fb.control('1231123123', {
-            updateOn: 'change',
-            validators: [
-              Validators.required,
-              Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,32}$/),
-              Validators.minLength(6),
-              Validators.maxLength(32)
-            ]
-          }),
-      }),
-
-      isRememberMe: true
+      users: this.fb.array([])
     });
 
+    (this.form.get('users') as FormArray).push(this.createLoginItem());
+
+  }
+
+  addNewUser() {
+    (this.form.get('users') as FormArray).push(this.createLoginItem());
+  }
+
+  createLoginItem() {
+    return this.fb.group({
+      email: this.fb.control('', {
+        updateOn: 'change',
+        validators: [
+          Validators.required,
+          Validators.email,
+          Validators.minLength(3),
+          Validators.maxLength(100)
+        ]
+      }),
+      mima: this.fb.control('', {
+        updateOn: 'change',
+        validators: [
+          Validators.required,
+          Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,32}$/),
+          Validators.minLength(6),
+          Validators.maxLength(32)
+        ]
+      })
+    });
   }
 
   f(name: string) {
     return this.form.get(name) as FormControl;
   }
+  a(name: string) {
+    return this.form.get(name) as FormArray;
+  }
 
   doLogin(ngForm: FormGroupDirective) {
 
     if (this.form.valid) {
-        // 假設登入驗證成功，寫入 Token 到 localStorage 中
-        localStorage.setItem('token', '123');
-        var url = this.route.snapshot.queryParamMap.get('returnUrl');
-        if (!!url) {
-          this.router.navigateByUrl(url);
-        } else {
-          this.router.navigateByUrl('/');
-        }
+      // 假設登入驗證成功，寫入 Token 到 localStorage 中
+      localStorage.setItem('token', '123');
+      var url = this.route.snapshot.queryParamMap.get('returnUrl');
+      if (!!url) {
+        this.router.navigateByUrl(url);
+      } else {
+        this.router.navigateByUrl('/');
+      }
     }
 
     if (this.form.invalid) {
