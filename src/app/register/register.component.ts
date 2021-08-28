@@ -13,15 +13,15 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   data: any[] = [
     {
-      email: '1@yam.com',
+      ssid: 'A123456789',
       mima: '12311aaad2G3123',
     },
     {
-      email: '2@yam.com',
+      ssid: 'A555555555',
       mima: '12311ddd2G3123',
     },
     {
-      email: '3@yam.com',
+      ssid: 'A987654321',
       mima: '123',
     }
   ];
@@ -54,18 +54,17 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   addNewUser() {
-    this.a('users').push(this.createLoginItem());
+    this.a('users').push(this.createUser());
   }
 
-  createLoginItem() {
+  createUser() {
     let group = this.fb.group({
-      email: this.fb.control('', { updateOn: 'change' }),
+      ssid: this.fb.control('', { updateOn: 'change' }),
       mima: this.fb.control('', { updateOn: 'change' }),
     });
 
-    group.get('email').setValidators([
+    group.get('ssid').setValidators([
       Validators.required, Validators.minLength(3), Validators.maxLength(100),
-      Validators.email
     ]);
 
     group.get('mima').setValidators([
