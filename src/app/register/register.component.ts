@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators, FormGroupDirective, FormArray } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -7,7 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
 
   origBodyClassName: string;
 
@@ -37,11 +37,9 @@ export class RegisterComponent implements OnInit {
     this.document.body.className = 'bg-gradient-primary';
 
     this.resetForm(this.data);
-
   }
 
   resetForm(data: any[]) {
-
     this.form = this.fb.group({
       users: this.fb.array([])
     });
@@ -56,30 +54,26 @@ export class RegisterComponent implements OnInit {
   }
 
   addNewUser() {
-    (this.form.get('users') as FormArray).push(this.createLoginItem());
+    this.a('users').push(this.createLoginItem());
   }
 
   createLoginItem() {
-    return this.fb.group({
-      email: this.fb.control('', {
-        updateOn: 'change',
-        validators: [
-          Validators.required,
-          Validators.email,
-          Validators.minLength(3),
-          Validators.maxLength(100)
-        ]
-      }),
-      mima: this.fb.control('', {
-        updateOn: 'change',
-        validators: [
-          Validators.required,
-          Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,32}$/),
-          Validators.minLength(6),
-          Validators.maxLength(32)
-        ]
-      })
+    let group = this.fb.group({
+      email: this.fb.control('', { updateOn: 'change' }),
+      mima: this.fb.control('', { updateOn: 'change' }),
     });
+
+    group.get('email').setValidators([
+      Validators.required, Validators.minLength(3), Validators.maxLength(100),
+      Validators.email
+    ]);
+
+    group.get('mima').setValidators([
+      Validators.required, Validators.minLength(6), Validators.maxLength(32),
+      Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,32}$/)
+    ]);
+
+    return group;
   }
 
   f(name: string) {
