@@ -24,8 +24,8 @@ form.value = {{ form.value | json }}
 
                       <div class="form-group">
                         <input type="email" class="form-control form-control-user" formControlName="email"
-                              [class.is-invalid]="group.get('email').dirty && group.get('email').invalid"
-                              [class.is-valid]="group.get('email').dirty && group.get('email').valid" aria-describedby="emailHelp"
+                              [class.is-invalid]="(ngForm.submitted || group.get('email').dirty) && group.get('email').invalid"
+                              [class.is-valid]="(ngForm.submitted || group.get('email').dirty) && group.get('email').valid" aria-describedby="emailHelp"
                               placeholder="Enter Email Address...">
                         <div *ngIf="group.get('email').invalid && group.get('email').errors?.required">請輸入您的 E-mail 地址</div>
                         <div *ngIf="group.get('email').invalid && group.get('email').errors?.email || group.get('email').errors?.minlength">請輸入合法的
@@ -33,8 +33,8 @@ form.value = {{ form.value | json }}
                       </div>
                       <div class="form-group">
                         <input type="password" class="form-control form-control-user" formControlName="mima"
-                              [class.is-invalid]="group.get('mima').dirty && group.get('mima').invalid"
-                              [class.is-valid]="group.get('mima').dirty && group.get('mima').valid" placeholder="Password">
+                              [class.is-invalid]="(ngForm.submitted || group.get('mima').dirty) && group.get('mima').invalid"
+                              [class.is-valid]="(ngForm.submitted || group.get('mima').dirty) && group.get('mima').valid" placeholder="Password">
                         <div *ngIf="group.get('mima').invalid && (group.get('mima').errors.required)">請輸入您的密碼</div>
                         <div
                             *ngIf="group.get('mima').invalid && (group.get('mima').errors.pattern || group.get('mima').errors.minlength?.requiredLength || group.get('mima').errors?.maxlength)">

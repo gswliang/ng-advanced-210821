@@ -11,11 +11,20 @@ export class RegisterComponent implements OnInit {
 
   origBodyClassName: string;
 
-  data: any = {
-    email: '',
-    mima: '1231123123',
-    isRememberMe: true
-  };
+  data: any[] = [
+    {
+      email: '1@yam.com',
+      mima: '12311aaad2G3123',
+    },
+    {
+      email: '2@yam.com',
+      mima: '12311ddd2G3123',
+    },
+    {
+      email: '3@yam.com',
+      mima: '123',
+    }
+  ];
 
   form: FormGroup;
 
@@ -27,12 +36,23 @@ export class RegisterComponent implements OnInit {
     this.origBodyClassName = this.document.body.className;
     this.document.body.className = 'bg-gradient-primary';
 
+    this.resetForm(this.data);
+
+  }
+
+  resetForm(data: any[]) {
+
     this.form = this.fb.group({
       users: this.fb.array([])
     });
 
-    (this.form.get('users') as FormArray).push(this.createLoginItem());
+    this.data.forEach(() => {
+      this.addNewUser();
+    });
 
+    this.form.reset({
+      users: data
+    });
   }
 
   addNewUser() {
