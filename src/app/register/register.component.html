@@ -10,21 +10,10 @@
             <div class="col-lg-6">
               <div class="p-5">
                 <div class="text-center">
-                  <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                  <h1 class="h4 text-gray-900 mb-4">會員註冊</h1>
                 </div>
                 <pre>data = {{ data | json}}
 form.value = {{ form.value | json }}
-form.valid = {{ form.valid }}
-form.invalid = {{ form.invalid }}
-form.pristine = {{ form.pristine }}
-form.dirty = {{ form.dirty }}
-form.touched = {{ form.touched }}
-form.untouched = {{ form.untouched }}
-form.disabled = {{ form.disabled }}
-form.enabled = {{ form.enabled }}
-form.errors = {{ form.errors | json }}
-form.status = {{ form.status }}
-ngForm.submitted = {{ ngForm.submitted }}
 </pre>
                 <div *ngIf="ngForm.submitted && form.invalid">表單驗證失敗!!</div>
                 <form class="user" [formGroup]="form" #ngForm="ngForm" (ngSubmit)="doLogin(ngForm)">
@@ -36,18 +25,6 @@ ngForm.submitted = {{ ngForm.submitted }}
                     <div *ngIf="f('email').invalid && f('email').errors?.required">請輸入您的 E-mail 地址</div>
                     <div *ngIf="f('email').invalid && f('email').errors?.email || f('email').errors?.minlength">請輸入合法的
                       E-mail 地址 </div>
-                    <pre>f('email').value = {{ f('email').value }}
-f('email').valid = {{ f('email').valid }}
-f('email').invalid = {{ f('email').invalid }}
-f('email').pristine = {{ f('email').pristine }}
-f('email').dirty = {{ f('email').dirty }}
-f('email').touched = {{ f('email').touched }}
-f('email').untouched = {{ f('email').untouched }}
-f('email').disabled = {{ f('email').disabled }}
-f('email').enabled = {{ f('email').enabled }}
-f('email').errors = {{ f('email').errors | json }}
-f('email').status = {{ f('email').status }}
-</pre>
                   </div>
                   <div class="form-group">
                     <input type="password" class="form-control form-control-user" formControlName="mima"
@@ -57,18 +34,6 @@ f('email').status = {{ f('email').status }}
                     <div
                          *ngIf="f('mima').invalid && (f('mima').errors.pattern || f('mima').errors.minlength?.requiredLength || f('mima').errors?.maxlength)">
                       請輸入合法的密碼格式 ( 請輸入 6 ~ 32 個字元，並至少輸入一個數字、一個小寫英文字母、一個大寫英文字母)</div>
-                    <pre>f('mima').value = {{ f('mima').value }}
-f('mima').valid = {{ f('mima').valid }}
-f('mima').invalid = {{ f('mima').invalid }}
-f('mima').pristine = {{ f('mima').pristine }}
-f('mima').dirty = {{ f('mima').dirty }}
-f('mima').touched = {{ f('mima').touched }}
-f('mima').untouched = {{ f('mima').untouched }}
-f('mima').disabled = {{ f('mima').disabled }}
-f('mima').enabled = {{ f('mima').enabled }}
-f('mima').errors = {{ f('mima').errors | json }}
-f('mima').status = {{ f('mima').status }}
-</pre>
                   </div>
                   <div class="form-group">
                     <div class="custom-control custom-checkbox small">
