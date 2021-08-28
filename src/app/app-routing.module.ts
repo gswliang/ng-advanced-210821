@@ -1,3 +1,4 @@
+import { RegisterComponent } from './register/register.component';
 import { AuthGuard } from './auth.guard';
 import { ColorComponent } from './utilities/color/color.component';
 import { NotFoundComponent } from './not-found/not-found.component';
@@ -28,6 +29,7 @@ const routes: Routes = [
   },
   { path: 'login', component: LoginComponent },
   { path: 'login2', component: Login2Component },
+  { path: 'register', component: RegisterComponent },
   // { path: '**', component: NotFoundComponent },
 ];
 

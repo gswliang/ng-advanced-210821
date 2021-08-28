@@ -1,0 +1,101 @@
+<div class="container">
+  <!-- Outer Row -->
+  <div class="row justify-content-center">
+    <div class="col-xl-10 col-lg-12 col-md-9">
+      <div class="card o-hidden border-0 shadow-lg my-5">
+        <div class="card-body p-0">
+          <!-- Nested Row within Card Body -->
+          <div class="row">
+            <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+            <div class="col-lg-6">
+              <div class="p-5">
+                <div class="text-center">
+                  <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                </div>
+                <pre>data = {{ data | json}}
+form.value = {{ form.value | json }}
+form.valid = {{ form.valid }}
+form.invalid = {{ form.invalid }}
+form.pristine = {{ form.pristine }}
+form.dirty = {{ form.dirty }}
+form.touched = {{ form.touched }}
+form.untouched = {{ form.untouched }}
+form.disabled = {{ form.disabled }}
+form.enabled = {{ form.enabled }}
+form.errors = {{ form.errors | json }}
+form.status = {{ form.status }}
+ngForm.submitted = {{ ngForm.submitted }}
+</pre>
+                <div *ngIf="ngForm.submitted && form.invalid">表單驗證失敗!!</div>
+                <form class="user" [formGroup]="form" #ngForm="ngForm" (ngSubmit)="doLogin(ngForm)">
+                  <div class="form-group">
+                    <input type="email" class="form-control form-control-user" formControlName="email"
+                           [class.is-invalid]="f('email').dirty && f('email').invalid"
+                           [class.is-valid]="f('email').dirty && f('email').valid" aria-describedby="emailHelp"
+                           placeholder="Enter Email Address...">
+                    <div *ngIf="f('email').invalid && f('email').errors?.required">請輸入您的 E-mail 地址</div>
+                    <div *ngIf="f('email').invalid && f('email').errors?.email || f('email').errors?.minlength">請輸入合法的
+                      E-mail 地址 </div>
+                    <pre>f('email').value = {{ f('email').value }}
+f('email').valid = {{ f('email').valid }}
+f('email').invalid = {{ f('email').invalid }}
+f('email').pristine = {{ f('email').pristine }}
+f('email').dirty = {{ f('email').dirty }}
+f('email').touched = {{ f('email').touched }}
+f('email').untouched = {{ f('email').untouched }}
+f('email').disabled = {{ f('email').disabled }}
+f('email').enabled = {{ f('email').enabled }}
+f('email').errors = {{ f('email').errors | json }}
+f('email').status = {{ f('email').status }}
+</pre>
+                  </div>
+                  <div class="form-group">
+                    <input type="password" class="form-control form-control-user" formControlName="mima"
+                           [class.is-invalid]="f('mima').dirty && f('mima').invalid"
+                           [class.is-valid]="f('mima').dirty && f('mima').valid" placeholder="Password">
+                    <div *ngIf="f('mima').invalid && (f('mima').errors.required)">請輸入您的密碼</div>
+                    <div
+                         *ngIf="f('mima').invalid && (f('mima').errors.pattern || f('mima').errors.minlength?.requiredLength || f('mima').errors?.maxlength)">
+                      請輸入合法的密碼格式 ( 請輸入 6 ~ 32 個字元，並至少輸入一個數字、一個小寫英文字母、一個大寫英文字母)</div>
+                    <pre>f('mima').value = {{ f('mima').value }}
+f('mima').valid = {{ f('mima').valid }}
+f('mima').invalid = {{ f('mima').invalid }}
+f('mima').pristine = {{ f('mima').pristine }}
+f('mima').dirty = {{ f('mima').dirty }}
+f('mima').touched = {{ f('mima').touched }}
+f('mima').untouched = {{ f('mima').untouched }}
+f('mima').disabled = {{ f('mima').disabled }}
+f('mima').enabled = {{ f('mima').enabled }}
+f('mima').errors = {{ f('mima').errors | json }}
+f('mima').status = {{ f('mima').status }}
+</pre>
+                  </div>
+                  <div class="form-group">
+                    <div class="custom-control custom-checkbox small">
+                      <input type="checkbox" class="custom-control-input" id="customCheck"
+                             formControlName="isRememberMe">
+                      <label class="custom-control-label" for="customCheck">Remember Me</label>
+                    </div>
+                  </div>
+                  <button type="submit" class="btn btn-primary btn-user btn-block">Login</button>
+                  <hr>
+                  <a href="index.html" class="btn btn-google btn-user btn-block">
+                    <i class="fab fa-google fa-fw"></i> Login with Google </a>
+                  <a href="index.html" class="btn btn-facebook btn-user btn-block">
+                    <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook </a>
+                </form>
+                <hr>
+                <div class="text-center">
+                  <a class="small" href="forgot-password.html">Forgot Password?</a>
+                </div>
+                <div class="text-center">
+                  <a class="small" href="register.html">Create an Account!</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -4,10 +4,10 @@ import { FormControl, FormBuilder, FormGroup, Validators, FormGroupDirective } f
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
-  templateUrl: './login2.component.html',
-  styleUrls: ['./login2.component.css']
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.css']
 })
-export class Login2Component implements OnInit {
+export class RegisterComponent implements OnInit {
 
   origBodyClassName: string;
 
@@ -85,4 +85,5 @@ export class Login2Component implements OnInit {
   ngOnDestroy(): void {
     this.document.body.className = this.origBodyClassName;
   }
+
 }
