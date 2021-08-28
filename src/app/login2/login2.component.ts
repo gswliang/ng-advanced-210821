@@ -1,6 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
-import { NgForm, FormControl } from '@angular/forms';
+import { NgForm, FormControl, FormBuilder, FormGroup, Validators, FormGroupDirective } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -17,17 +17,41 @@ export class Login2Component implements OnInit {
     isRememberMe: true
   };
 
+  form: FormGroup;
+
   constructor(@Inject(DOCUMENT) private document: Document,
+    private fb: FormBuilder,
     private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.origBodyClassName = this.document.body.className;
     this.document.body.className = 'bg-gradient-primary';
+
+    this.form = this.fb.group(this.data);
+
+    this.f('email').setValidators([
+      Validators.required,
+      Validators.email,
+      Validators.minLength(3),
+      Validators.maxLength(100)
+    ]);
+
+    this.f('mima').setValidators([
+      Validators.required,
+      Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,32}$/),
+      Validators.minLength(6),
+      Validators.maxLength(32)
+    ]);
+
   }
 
-  doLogin(form: NgForm) {
+  f(name: string) {
+    return this.form.get(name) as FormControl;
+  }
 
-    if (form.valid) {
+  doLogin(ngForm: FormGroupDirective) {
+
+    if (this.form.valid) {
         // 假設登入驗證成功，寫入 Token 到 localStorage 中
         localStorage.setItem('token', '123');
         var url = this.route.snapshot.queryParamMap.get('returnUrl');
@@ -38,10 +62,10 @@ export class Login2Component implements OnInit {
         }
     }
 
-    if (form.invalid) {
+    if (this.form.invalid) {
       let errMsg = '';
-      for (const fieldName of Object.keys(form.controls)) {
-        let ctrl = form.controls[fieldName] as FormControl;
+      for (const fieldName of Object.keys(this.form.controls)) {
+        let ctrl = this.form.controls[fieldName] as FormControl;
         if (ctrl.invalid) {
           let fieldValue = ctrl.value;
           errMsg += `欄位 ${fieldName} 發生錯誤: ${fieldValue}\r\n`;
